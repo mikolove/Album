@@ -1,9 +1,7 @@
 package com.mikolove.album.view
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -17,9 +15,12 @@ import timber.log.Timber
 
 class AlbumFragment : Fragment() {
 
+    private lateinit var binding : FragmentAlbumBinding
+    private lateinit var viewModel : AlbumViewModel
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        val binding : FragmentAlbumBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_album,container,false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_album,container,false)
 
         val application = requireNotNull(this.activity).application
 
@@ -27,10 +28,12 @@ class AlbumFragment : Fragment() {
 
         val viewModelFactory = AlbumViewModelFactory(database)
 
-        val viewModel = ViewModelProvider(this,viewModelFactory).get(AlbumViewModel::class.java)
+        viewModel = ViewModelProvider(this,viewModelFactory).get(AlbumViewModel::class.java)
 
         binding.lifecycleOwner = this
         binding.albumViewModel = viewModel
+
+        setHasOptionsMenu(true)
 
         val adapter = AlbumAdapter( AlbumItemClickListener { it ->
             it?.let {
@@ -38,23 +41,75 @@ class AlbumFragment : Fragment() {
             }
         })
 
-        val layoutManager= GridLayoutManager(application, 5)
-        layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+        val manager = GridLayoutManager(application, AlbumAdapter.ITEM_GRID_NUMBER)
+        manager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
                 return when (adapter.getItemViewType(position)) {
-                    0 -> 5
-                    else -> 1
+                    AlbumAdapter.ITEM_VIEW_TYPE_HEADER -> AlbumAdapter.ITEM_GRID_NUMBER
+                    else -> AlbumAdapter.ITEM_GRID_MIN_NUMBER
                 }
             }
         }
 
-        binding.albumRecyclerView.layoutManager = layoutManager
+        binding.albumRecyclerView.layoutManager = manager
         binding.albumRecyclerView.adapter = adapter
 
         viewModel.allAlbum.observe(viewLifecycleOwner, Observer {
-            adapter.submitList(it)
+            Timber.i("List size %d",it.size)
+            if(it.isEmpty()){
+                hideData()
+            }else{
+                adapter.submitList(it)
+                showData()
+            }
+        })
+
+        viewModel.loading.observe(viewLifecycleOwner, Observer {
+            if(it)
+                showProgress()
+            else
+                hideProgress()
         })
 
         return binding.root
     }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.menu_album_refresh -> {
+                if(!viewModel.getLoadingState()!!)
+                    viewModel.refreshAlbum()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+
+    fun showData(){
+        binding.albumError.visibility= View.GONE
+        binding.albumRecyclerView.visibility = View.VISIBLE
+    }
+    fun hideData(){
+        binding.albumRecyclerView.visibility = View.GONE
+        binding.albumError.visibility= View.VISIBLE
+    }
+
+    fun showProgress(){
+        binding.albumError.visibility= View.GONE
+        binding.albumRecyclerView.visibility = View.GONE
+        binding.albumProgress.visibility = View.VISIBLE
+    }
+
+    fun hideProgress(){
+        binding.albumProgress.visibility = View.GONE
+        binding.albumRecyclerView.visibility = View.VISIBLE
+    }
+
+
 }

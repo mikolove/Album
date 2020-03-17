@@ -6,6 +6,10 @@ import androidx.room.Entity
 import androidx.room.Index
 import com.mikolove.album.data.AlbumDatabase
 
+/*
+    Album Item class for database element
+ */
+
 @Entity(
     tableName = AlbumDatabase.albumTableName,
     primaryKeys = ["id"],

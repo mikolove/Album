@@ -10,7 +10,7 @@ import com.mikolove.album.data.entities.AlbumEntity
 @Database(entities = [AlbumEntity::class], version = 1, exportSchema = false)
 abstract class AlbumDatabase : RoomDatabase() {
 
-    abstract fun AlbumDao() : AlbumDao
+    abstract fun albumDao() : AlbumDao
 
     companion object{
 

@@ -2,6 +2,9 @@ package com.mikolove.album.data.entities
 
 import com.squareup.moshi.Json
 
+/*
+    Album Item class for element received from JSON
+ */
 data class AlbumData(
     val id : Int,
     val albumId: Int,

@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/album_fragment"
         android:name="com.mikolove.album.view.AlbumFragment"
-        android:label="AlbumFragment"
+        android:label="@string/navigation_title_album"
         tools:layout="@layout/fragment_album">
         <action
             android:id="@+id/action_album_fragment_to_detailFragment"
@@ -17,7 +17,7 @@
     <fragment
         android:id="@+id/detail_fragment"
         android:name="com.mikolove.album.view.DetailFragment"
-        android:label="DetailFragment"
+        android:label="@string/navigation_title_detail"
         tools:layout="@layout/fragment_detail">
         <argument
             android:name="id"

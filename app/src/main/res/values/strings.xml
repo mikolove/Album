@@ -2,7 +2,13 @@
 
     <string name="app_name">Album</string>
 
-    <string name="album_title">Album id : %d</string>
+    <string name="navigation_title_album">Album</string>
+    <string name="navigation_title_detail">Detail</string>
+
+    <string name="menu_refresh">Refresh</string>
+
+    <string name="album_title">Album : %d</string>
+    <string name="album_loading_error">An error occured during process please hit the refresh button to try again</string>
     <string name="detail_title">Title</string>
 
 </resources>

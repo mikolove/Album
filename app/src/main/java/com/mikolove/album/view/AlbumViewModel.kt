@@ -10,34 +10,41 @@ import com.mikolove.album.repository.AlbumRepository
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-class AlbumViewModel(private val database : AlbumDatabase) : ViewModel() {
+class AlbumViewModel(database : AlbumDatabase) : ViewModel() {
 
     private val albumRepository = AlbumRepository(database)
+
+    private val _loading = MutableLiveData<Boolean>()
+    val loading : LiveData<Boolean>
+        get() = _loading
 
     private val _allAlbum = MutableLiveData<List<Item>>()
     val allAlbum : LiveData<List<Item>>
         get() = _allAlbum
 
+    fun getLoadingState() = loading.value
+
     init {
+        _loading.value = false
         loadAlbum()
-        loadAllAlbum()
     }
 
-    private fun loadAlbum(){
+    fun refreshAlbum(){
+        loadAlbum(true)
+    }
+    private fun loadAlbum( forceReset : Boolean = false){
         viewModelScope.launch {
-            if(albumRepository.isOnlineDataFetched() == 0){
+            _loading.value = true
+            if(albumRepository.isOnlineDataFetched() == 0 || forceReset){
+                Timber.i("No data fecth it")
                 try {
                     albumRepository.getOnlineAlbumData()
                 }catch (e : Exception){
                     Timber.i("Exception view model loading data %s",e)
                 }
             }
-        }
-    }
-
-    private fun loadAllAlbum(){
-        viewModelScope.launch {
             _allAlbum.value = albumRepository.getAllAlbum()
+            _loading.value = false
         }
     }
 

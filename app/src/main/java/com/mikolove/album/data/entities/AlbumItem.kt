@@ -1,7 +1,10 @@
 package com.mikolove.album.data.entities
 
-sealed class Item{
+/*
+    Item class for element used in UI
+ */
 
+sealed class Item{
     abstract val isHeader : Int
 }
 
