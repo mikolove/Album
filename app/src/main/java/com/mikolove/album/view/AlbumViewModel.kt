@@ -36,7 +36,6 @@ class AlbumViewModel(database : AlbumDatabase) : ViewModel() {
         viewModelScope.launch {
             _loading.value = true
             if(albumRepository.isOnlineDataFetched() == 0 || forceReset){
-                Timber.i("No data fecth it")
                 try {
                     albumRepository.getOnlineAlbumData()
                 }catch (e : Exception){

@@ -19,7 +19,7 @@ class AlbumRepository(private val database : AlbumDatabase) {
                     database.albumDao().insertAll(getAlbumDataDeferred.asAlbum())
                 }
             }catch (e : Exception){
-                Timber.i("Exception on retrieving data")
+                Timber.i("Exception on retrieving data %s",e)
             }
         }
     }
