@@ -1,17 +1,15 @@
 package com.mikolove.album
 
 import android.widget.ImageView
-import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
-import com.bumptech.glide.Glide
-
+import com.squareup.picasso.Picasso
 
 @BindingAdapter("imageUrl")
-fun bindImage(view: ImageView, imgUrl: String) {
+fun bindImage(view: ImageView, imgUrl: String?) {
     imgUrl?.let {
-        Glide.with(view.context)
+        Picasso.get()
             .load(imgUrl)
-            .placeholder(R.drawable.loading_animation)
+            .placeholder(R.drawable.ic_cloud_download_black)
             .error(R.drawable.ic_broken_image_black)
             .into(view)
     }

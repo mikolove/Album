@@ -5,12 +5,9 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.mikolove.album.data.dao.AlbumDao
-import com.mikolove.album.data.entities.Album
-import com.mikolove.album.data.entities.AlbumView
+import com.mikolove.album.data.entities.AlbumEntity
 
-@Database(entities = [Album::class],
-    views = [AlbumView::class],
-    version = 1, exportSchema = false)
+@Database(entities = [AlbumEntity::class], version = 1, exportSchema = false)
 abstract class AlbumDatabase : RoomDatabase() {
 
     abstract fun AlbumDao() : AlbumDao
@@ -18,7 +15,6 @@ abstract class AlbumDatabase : RoomDatabase() {
     companion object{
 
         const val albumTableName = "album"
-        const val albumTableViewName = "album_view"
 
         @Volatile
         private var INSTANCE: AlbumDatabase? = null

@@ -14,19 +14,44 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/detail_recycler_view"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
+
+        <TextView
+            android:id="@+id/detail_album_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@{@string/album_title(detailViewModel.detail.albumId)}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/detai_album_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/detail_title"
+            app:layout_constraintStart_toStartOf="@+id/detail_album_id"
+            app:layout_constraintTop_toBottomOf="@+id/detail_album_id" />
+
+        <TextView
+            android:id="@+id/detail_album_title_cotent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:text="@{detailViewModel.detail.title}"
+            app:layout_constraintStart_toStartOf="@+id/detai_album_title"
+            app:layout_constraintTop_toBottomOf="@+id/detai_album_title" />
+
+        <ImageView
+            android:id="@+id/detail_album_url"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-
+            app:layout_constraintTop_toBottomOf="@+id/detail_album_title_cotent"
+            app:imageUrl="@{detailViewModel.detail.url}" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

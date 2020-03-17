@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import com.mikolove.album.R
 import com.mikolove.album.data.AlbumDatabase
 import com.mikolove.album.databinding.FragmentAlbumBinding
@@ -32,18 +32,26 @@ class AlbumFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.albumViewModel = viewModel
 
-        val linearLayout = LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false)
-        val adapter = AlbumAdapter( AlbumClickListener { it ->
+        val adapter = AlbumAdapter( AlbumItemClickListener { it ->
             it?.let {
-                this.findNavController().navigate(AlbumFragmentDirections.actionAlbumFragmentToDetailFragment(it.albumId))
-                Timber.i("Album selected %d",it.albumId)
+                this.findNavController().navigate(AlbumFragmentDirections.actionAlbumFragmentToDetailFragment(it.id))
             }
         })
 
-        binding.albumRecyclerView.layoutManager = linearLayout
+        val layoutManager= GridLayoutManager(application, 5)
+        layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+            override fun getSpanSize(position: Int): Int {
+                return when (adapter.getItemViewType(position)) {
+                    0 -> 5
+                    else -> 1
+                }
+            }
+        }
+
+        binding.albumRecyclerView.layoutManager = layoutManager
         binding.albumRecyclerView.adapter = adapter
 
-        viewModel.albums.observe(viewLifecycleOwner, Observer {
+        viewModel.allAlbum.observe(viewLifecycleOwner, Observer {
             adapter.submitList(it)
         })
 

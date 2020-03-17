@@ -1,6 +1,5 @@
-package com.mikolove.album.data
+package com.mikolove.album.data.entities
 
-import com.mikolove.album.data.entities.Album
 import com.squareup.moshi.Json
 
 data class AlbumData(
@@ -11,9 +10,9 @@ data class AlbumData(
     @Json(name="thumbnailUrl") val thumbnailUrl : String
 )
 
-fun List<AlbumData>.asAlbum() : List<Album>{
+fun List<AlbumData>.asAlbum() : List<AlbumEntity>{
     return map{
-        Album(
+        AlbumEntity(
             id = it.id,
             albumId = it.albumId,
             title = it.title,

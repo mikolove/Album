@@ -3,6 +3,6 @@
     <string name="app_name">Album</string>
 
     <string name="album_title">Album id : %d</string>
-    <string name="album_count">%d Element</string>
+    <string name="detail_title">Title</string>
 
 </resources>

@@ -3,9 +3,7 @@ package com.mikolove.album.repository
 import androidx.lifecycle.LiveData
 import com.mikolove.album.data.AlbumApi
 import com.mikolove.album.data.AlbumDatabase
-import com.mikolove.album.data.asAlbum
-import com.mikolove.album.data.entities.Album
-import com.mikolove.album.data.entities.AlbumView
+import com.mikolove.album.data.entities.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.await
@@ -13,20 +11,29 @@ import timber.log.Timber
 
 class AlbumRepository(private val database : AlbumDatabase) {
 
-    val albumByGroup : LiveData<List<AlbumView>> = database.AlbumDao().getAlbumGroupById()
-
     suspend fun isOnlineDataFetched() : Int{
         return withContext(Dispatchers.IO){
             database.AlbumDao().isOnlineDataFetched()
         }
     }
 
-    suspend fun getAlbumById(id_album : Int) : List<Album>{
+    suspend fun getAllAlbum() : List<Item>{
+        return withContext(Dispatchers.IO){
+            database.AlbumDao().getAllAlbum().withHeader()
+        }
+    }
+
+    suspend fun getAlbumById(id_album : Int) : List<AlbumEntity>{
         return withContext(Dispatchers.IO){
             database.AlbumDao().getAlbumById(id_album)
         }
     }
 
+    suspend fun getDetailById(id : Int) : AlbumItem{
+        return withContext(Dispatchers.IO){
+            database.AlbumDao().getDetailById(id).asItem()
+        }
+    }
     suspend fun getOnlineAlbumData(){
         withContext(Dispatchers.IO){
             try {

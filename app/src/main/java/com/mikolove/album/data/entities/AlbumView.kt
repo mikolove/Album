@@ -1,5 +1,5 @@
 package com.mikolove.album.data.entities
-
+/*
 import androidx.room.DatabaseView
 import com.mikolove.album.data.AlbumDatabase
 
@@ -7,4 +7,4 @@ import com.mikolove.album.data.AlbumDatabase
 data class AlbumView(
     val albumId : Int,
     val nbElement : Int
-)
+)*/
