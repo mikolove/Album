@@ -20,7 +20,7 @@ interface AlbumDao {
     fun getAllAlbum() : List<AlbumEntity>
 
     @Query("SELECT count(*) as isFetched FROM ${AlbumDatabase.albumTableName} LIMIT 1")
-    fun isOnlineDataFetched() : Int
+    fun isTableEmpty() : Int
 
     @Query("SELECT * FROM ${AlbumDatabase.albumTableName} WHERE id = :id")
     fun getDetailById(id : Int) : AlbumEntity

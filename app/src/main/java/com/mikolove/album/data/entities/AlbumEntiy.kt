@@ -1,6 +1,5 @@
 package com.mikolove.album.data.entities
 
-import androidx.lifecycle.Transformations.map
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Index

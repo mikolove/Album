@@ -14,44 +14,59 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
         <TextView
-            android:id="@+id/detail_album_id"
-            android:layout_width="wrap_content"
+            android:id="@+id/detai_album_title"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:text="@{@string/album_title(detailViewModel.detail.albumId)}"
+            android:text="@string/detail_title"
+            android:layout_margin="@dimen/base_margin_border"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/guideline"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/detai_album_title"
-            android:layout_width="wrap_content"
+            android:id="@+id/detail_album_title_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="@string/detail_title"
-            app:layout_constraintStart_toStartOf="@+id/detail_album_id"
-            app:layout_constraintTop_toBottomOf="@+id/detail_album_id" />
-
-        <TextView
-            android:id="@+id/detail_album_title_cotent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="@dimen/base_margin_border"
             android:text="@{detailViewModel.detail.title}"
+            android:textStyle="italic"
+            app:layout_constraintEnd_toEndOf="@+id/detai_album_title"
             app:layout_constraintStart_toStartOf="@+id/detai_album_title"
             app:layout_constraintTop_toBottomOf="@+id/detai_album_title" />
 
+        <ProgressBar
+            android:id="@+id/detailProgress"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="visible"/>
+
         <ImageView
             android:id="@+id/detail_album_url"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="@dimen/base_margin_border"
+            app:imageUrl="@{detailViewModel.detail.url}"
+            app:progressBar="@{detailProgress}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="gone"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            app:imageUrl="@{detailViewModel.detail.url}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/detail_album_title_cotent"
-            app:layout_constraintTop_toTopOf="@+id/detai_album_title" />
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

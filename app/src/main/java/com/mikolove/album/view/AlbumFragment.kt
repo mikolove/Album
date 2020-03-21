@@ -55,7 +55,6 @@ class AlbumFragment : Fragment() {
         binding.albumRecyclerView.adapter = adapter
 
         viewModel.allAlbum.observe(viewLifecycleOwner, Observer {
-            Timber.i("List size %d",it.size)
             if(it.isEmpty()){
                 hideData()
             }else{
@@ -82,6 +81,7 @@ class AlbumFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.menu_album_refresh -> {
+                //Block refresh if already in progress
                 if(!viewModel.getLoadingState()!!)
                     viewModel.refreshAlbum()
                 true
@@ -89,8 +89,7 @@ class AlbumFragment : Fragment() {
             else -> super.onOptionsItemSelected(item)
         }
     }
-
-
+    
     fun showData(){
         binding.albumError.visibility= View.GONE
         binding.albumRecyclerView.visibility = View.VISIBLE

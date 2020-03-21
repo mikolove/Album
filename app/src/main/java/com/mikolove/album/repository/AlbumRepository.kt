@@ -26,7 +26,7 @@ class AlbumRepository(private val database : AlbumDatabase) {
 
     suspend fun isOnlineDataFetched() : Int{
         return withContext(Dispatchers.IO){
-            database.albumDao().isOnlineDataFetched()
+            database.albumDao().isTableEmpty()
         }
     }
 
@@ -39,17 +39,6 @@ class AlbumRepository(private val database : AlbumDatabase) {
     suspend fun getDetailById(id : Int) : AlbumItem{
         return withContext(Dispatchers.IO){
             database.albumDao().getDetailById(id).asItem()
-        }
-    }
-
-    suspend fun clearAll() : Boolean{
-        return withContext(Dispatchers.IO){
-            try{
-                database.albumDao().clearAll()
-                true
-            }catch (e : Exception){
-                false
-            }
         }
     }
 }

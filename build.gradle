@@ -10,6 +10,7 @@ buildscript {
     ext.navigation_version = '2.3.0-alpha03'
     ext.timber_version = '4.7.1'
     ext.picaso_version = '2.71828'
+    ext.okhttp_version = '3.12.8'
 
     repositories {
         google()
