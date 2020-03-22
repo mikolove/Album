@@ -8,8 +8,9 @@ import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import java.lang.Exception
 
-@BindingAdapter(value = ["imageUrl","progressBar"])
-fun bindImage(view: ImageView, imgUrl: String?, progressBar : ProgressBar) {
+
+@BindingAdapter(value = ["url","progressBar"])
+fun bindBigImage(view: ImageView, imgUrl: String?, progressBar : ProgressBar) {
     imgUrl?.let {
         Picasso.get()
             .load(imgUrl)
@@ -25,5 +26,16 @@ fun bindImage(view: ImageView, imgUrl: String?, progressBar : ProgressBar) {
                     view.visibility = View.VISIBLE
                 }
             })
+    }
+}
+
+@BindingAdapter( "thumbnailUrl")
+fun bindImage(view: ImageView, imgUrl: String?) {
+    imgUrl?.let {
+        Picasso.get()
+            .load(imgUrl)
+            .placeholder(R.drawable.ic_cloud_download_black)
+            .error(R.drawable.ic_broken_image_black)
+            .into(view)
     }
 }

@@ -51,7 +51,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_margin="@dimen/base_margin_border"
-            app:imageUrl="@{detailViewModel.detail.url}"
+            app:url="@{detailViewModel.detail.url}"
             app:progressBar="@{detailProgress}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

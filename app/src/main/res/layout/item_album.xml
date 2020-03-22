@@ -18,30 +18,17 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <ProgressBar
-            android:id="@+id/albumProgress"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:visibility="visible"/>
-
         <ImageView
             android:id="@+id/item_album_thumbnail"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/image_margin"
             android:onClick="@{()-> clickListener.onClick(album)}"
-            app:imageUrl="@{album.thumbnailUrl}"
-            app:progressBar="@{albumProgress}"
+            app:thumbnailUrl="@{album.thumbnailUrl}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:visibility="gone"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
